@@ -1,5 +1,4 @@
 #include "al2o3_lz4/lz4.h"
-
 #include "lib/lz4.h"
 
 AL2O3_EXTERN_C int LZ4_Compress(uint8_t const* src, uint8_t* dst, size_t srcSize, size_t dstCapacity) {
