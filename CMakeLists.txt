@@ -10,6 +10,8 @@ if(NOT al2o3_POPULATED)
 	add_subdirectory(${al2o3_SOURCE_DIR} ${al2o3_BINARY_DIR})
 endif()
 
+option( AL2O3_ORIGINAL_LZ4_API "provide original lz4 api" OFF)
+
 FetchContent_Declare(
 		lz4_lz4
 		GIT_REPOSITORY https://github.com/lz4/lz4.git
@@ -22,6 +24,7 @@ endif()
 
 set(Interface
 		lz4.h
+		compat.h
 		)
 set(Src
 		lz4.c
@@ -32,7 +35,11 @@ set(Deps
 		)
 
 ADD_LIB(${LibName} "${Interface}" "${Src}" "${Deps}")
-target_include_directories(${LibName} PRIVATE ${lz4_lz4_SOURCE_DIR})
+if(AL2O3_ORIGINAL_LZ4_API)
+	target_include_directories(${LibName} PUBLIC ${lz4_lz4_SOURCE_DIR})
+else()
+	target_include_directories(${LibName} PRIVATE ${lz4_lz4_SOURCE_DIR})
+endif()
 target_sources(${LibName} PRIVATE ${lz4_lz4_SOURCE_DIR}/lib/lz4.c)
 target_sources(${LibName} PRIVATE ${lz4_lz4_SOURCE_DIR}/lib/lz4.h)
 target_sources(${LibName} PRIVATE ${lz4_lz4_SOURCE_DIR}/lib/lz4frame.c)
