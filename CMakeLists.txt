@@ -35,11 +35,7 @@ set(Deps
 		)
 
 ADD_LIB(${LibName} "${Interface}" "${Src}" "${Deps}")
-if(AL2O3_ORIGINAL_LZ4_API)
-	target_include_directories(${LibName} PUBLIC ${lz4_lz4_SOURCE_DIR})
-else()
-	target_include_directories(${LibName} PRIVATE ${lz4_lz4_SOURCE_DIR})
-endif()
+target_include_directories(${LibName} PUBLIC ${lz4_lz4_SOURCE_DIR})
 target_sources(${LibName} PRIVATE ${lz4_lz4_SOURCE_DIR}/lib/lz4.c)
 target_sources(${LibName} PRIVATE ${lz4_lz4_SOURCE_DIR}/lib/lz4.h)
 target_sources(${LibName} PRIVATE ${lz4_lz4_SOURCE_DIR}/lib/lz4frame.c)
