@@ -1,7 +1,3 @@
-cmake_minimum_required(VERSION 3.13)
-set(LibName al2o3_lz4)
-project(${LibName})
-
 include(FetchContent)
 FetchContent_Declare( al2o3 GIT_REPOSITORY https://github.com/DeanoC/al2o3 GIT_TAG master )
 FetchContent_GetProperties(al2o3)
@@ -10,7 +6,9 @@ if(NOT al2o3_POPULATED)
 	add_subdirectory(${al2o3_SOURCE_DIR} ${al2o3_BINARY_DIR})
 endif()
 
-option( AL2O3_ORIGINAL_LZ4_API "provide original lz4 api" OFF)
+SET_MIN_VERSIONS()
+set(LibName al2o3_lz4)
+project(${LibName})
 
 FetchContent_Declare(
 		lz4_lz4
